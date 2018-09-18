@@ -13,6 +13,24 @@
     top: 27.5%;
     width: 100%;
     border-radius: 20em;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    /* box-shadow: 4px 4px 10px grey; */
+}
+
+.profile-name {
+    max-width: 100%;
+    position: absolute;
+    top: 36.5%;
+    width: 100%;
+    text-align: center;
+    color: #444444;
+}
+
+#ratings-pic {
+    max-width: 20%;
+    position: absolute;
+    top: 42.5%;
+    width: 100%;
 }
 
 .create-appointment {
@@ -22,6 +40,17 @@
     width: 100%;
     text-align: center;
     color: #444444;
+}
+
+.schedule-appointment-button {
+    position: absolute;
+    top: 90%;
+    width: 100%;
+    height: 10%;
+    background-image: linear-gradient(#ABE7DB, #7CCDBD);
+    color: #444444;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 #logo {
@@ -41,6 +70,7 @@
         width: 100%;
         border-radius: 20em;
     }
+
     #logo {
         max-width: 5%;
         position: absolute;
@@ -49,11 +79,16 @@
         width: 100%;
         align-self: flex-start; 
     }
+
+    .create-appointment {
+        font-size: 2em;
+        top: 10%;
+    }
 }
 
 
 .svg-unit {
-    background-color: whitesmoke;
+    background-color: white;
 }
 
 .rect-unit {

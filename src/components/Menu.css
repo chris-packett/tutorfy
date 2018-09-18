@@ -113,6 +113,7 @@ transform: translateY(-6px) rotate(90deg);
 
 #nav:checked ~ .nav-wrapper {
 z-index: 9990;
+border: 1px solid black;
 opacity: 1;
 }
 
