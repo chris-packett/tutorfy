@@ -20,6 +20,7 @@ class AppointmentForm extends Component {
                     Location:
                     <input type="text" />
                 </label>
+                <button className="schedule-appointment-button">Schedule</button>
             </form>
         );
     }

@@ -10,11 +10,8 @@ class AppointmentsPage extends Component {
             <div className="appointments-page">
                 <AppointmentHeader />
                 <AppointmentEducator />
+                <AppointmentPrice />
                 <AppointmentForm />
-                <div className="schedule-appointment-section">
-                    <AppointmentPrice />
-                    <button className="schedule-appointment-button">Schedule</button>
-                </div>
             </div>
         );
     }
