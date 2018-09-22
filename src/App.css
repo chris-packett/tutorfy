@@ -1,55 +1,82 @@
-.svg-container {
-    width: 100%;
+.app {
     height: 100%;
-    position: relative;
+}
+
+.top-container {
+    height: 10%;
+    background-image: linear-gradient(#ABE7DB, #7CCDBD);
+}
+
+#logo {
+    width: 25%;
+    margin-left: 1em;
+    margin-top: 1em;
+}
+
+.appointments-page {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    height: 90%;
+}
+
+.appointment-educator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 20%;
 }
 
 #profile-pic {
-    max-width: 20%;
-    position: absolute;
-    top: 27.5%;
-    width: 100%;
+    width: 20%;
     border-radius: 20em;
     border: 2px solid white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    /* box-shadow: 4px 4px 10px grey; */
 }
 
 .profile-name {
-    max-width: 100%;
-    position: absolute;
-    top: 36.5%;
-    width: 100%;
-    text-align: center;
     color: #444444;
     font-size: .7em;
     font-weight: bold;
 }
 
 #ratings-pic {
-    max-width: 20%;
-    position: absolute;
-    top: 42.5%;
-    width: 100%;
+    width: 20%;
 }
 
-.create-appointment {
-    max-width: 100%;
-    position: absolute;
-    top: 12.5%;
-    width: 100%;
-    text-align: center;
+.appointment-header {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.appointment-header-text {
     color: #444444;
+    margin: 0;
+}
+
+.appointment-form {
+    height: 60%;
+}
+
+.appointment-form-date {
+}
+
+.schedule-appointment-section {
+    width: 100%;
+    height: 20%;
+}
+
+.schedule-appointment-price {
+    width: 100%;
+    height: 50%;
 }
 
 .schedule-appointment-button {
-    position: absolute;
-    top: 90%;
     width: 100%;
-    height: 10%;
+    height: 50%;
     background-image: linear-gradient(#ABE7DB, #7CCDBD);
     color: #444444;
     font-size: 1.5em;
@@ -58,69 +85,5 @@
     border-radius: .25em;
 }
 
-#logo {
-    max-width: 25%;
-    position: absolute;
-    top: 2.5%;
-    left: 5%;
-    width: 100%;
-    align-self: flex-start;
-}
-
-@media only screen and (min-width: 600px)  {
-    #profile-pic {
-        max-width: 10%;
-        position: absolute;
-        top: 26.5%;
-        width: 100%;
-        border-radius: 20em;
-    }
-
-    #logo {
-        max-width: 10%;
-        position: absolute;
-        top: 2.5%;
-        left: 2%;
-        width: 100%;
-        align-self: flex-start; 
-    }
-
-    .create-appointment {
-        font-size: 2em;
-        top: 10%;
-    }
-
-    .profile-name {
-        top: 42.5%;
-    }
-    
-    #ratings-pic {
-        top: 49%;
-        max-width: 10%;
-    }
-}
-
-
-.svg-unit {
-    background-color: white;
-}
-
-.rect-unit {
-    fill: url(#grad1);
-}
-
-.polygon-unit {
-    fill: url(#grad1);
-}
-
-.start {
-    stop-color:#ABE7DB;
-    stop-opacity:1
-}
-
-.end {
-    stop-color: #7CCDBD;
-    stop-opacity:1
-}
 
 
