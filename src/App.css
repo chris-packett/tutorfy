@@ -84,14 +84,14 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    padding-top: 2em;
+    padding-top: 1em;
 }
 
 .appointment-form>label {
     margin-left: 1em;
 }
 
-.appointment-form>label>input {
+.appointment-form>input {
     margin-left: 1em;
 }
 

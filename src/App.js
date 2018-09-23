@@ -6,7 +6,7 @@ import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    fetch('https://cors-anywhere.herokuapp.com/https://localhost:5001/api/appointments')
+    fetch('https://localhost:5001/api/appointments')
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
@@ -23,7 +23,7 @@ class App extends Component {
           <Menu />
           <div className="app-component">
             <Switch>
-              <Route path="/appointment/add" exact component={AppointmentsPage} />
+              <Route path="/appointment/new" exact component={AppointmentsPage} />
             </Switch>
           </div>
         </div>
