@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment'
 
 class AppointmentForm extends Component {
     constructor(props) {
@@ -17,10 +18,9 @@ class AppointmentForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         let appointmentData = {
-            "Location": this.state.location
+            "StartTime": moment(`${this.state.date}T${this.state.startTime}`, moment.HTML5_FMT.DATETIME_LOCAL).format(),
+            "Location": this.state.location,
         }
-        console.log(this.state.date)
-        console.log(this.state.startTime)
         fetch('https://localhost:5001/api/appointments/add', {
             method: "POST",
             headers: {
