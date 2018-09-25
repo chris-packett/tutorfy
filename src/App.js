@@ -7,14 +7,6 @@ import Menu from './components/Menu'
 import './App.css';
 
 class App extends Component {
-  componentDidMount() {
-    fetch('https://localhost:5001/api/appointments')
-    .then(resp => resp.json())
-    .then(data => {
-        console.log(data)
-    })
-  }
-
   render() {
     return (
       <Router history={history}>
