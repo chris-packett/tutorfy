@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AppointmentList from './AppointmentList'
 
 class Dashboard extends Component {
     constructor(props) {
@@ -17,17 +18,12 @@ class Dashboard extends Component {
             })
         })
     }
-    
+
     render() {
         return (
             <div>
-                {this.state.appointments.map(appointment => {
-                    return (
-                        <div key={appointment.id}>
-                            <h3>{appointment.location}</h3>
-                        </div>
-                    )
-                })}
+                <h3 className="text-center mt-4">Your Appointments:</h3>
+                <AppointmentList appointments={this.state.appointments} />
             </div>
         );
     }
