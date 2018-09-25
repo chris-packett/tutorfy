@@ -5,7 +5,7 @@ class AppointmentPrice extends Component {
         return (
             <div className="schedule-appointment-price">
                 <h5>Session Price:</h5>
-                <h5>$<span>30.00</span></h5>
+                <h5>$<span>{this.props.appointmentLength * this.props.priceRate}</span></h5>
             </div>
         );
     }

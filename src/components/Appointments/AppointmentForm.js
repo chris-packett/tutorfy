@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import history from '../../history'
+import AppointmentPrice from './AppointmentPrice'
 import moment from 'moment'
 
 class AppointmentForm extends Component {
@@ -35,14 +37,15 @@ class AppointmentForm extends Component {
         .then(resp => resp.json())
         .then(appointmentData => {
             console.log(appointmentData)
+            history.push('/dashboard')
         })
     }
 
     formatAppointmentLength = () => {
-        if (this.state.appointmentLength == 1) {
+        if (this.state.appointmentLength === "1") {
             return `${this.state.appointmentLength} hour`
         }
-        else if (this.state.appointmentLength % 1 == 0) {
+        else if (this.state.appointmentLength % 1 === 0) {
             return `${this.state.appointmentLength} hours`
         }
         else {
@@ -73,9 +76,11 @@ class AppointmentForm extends Component {
                     />
 
                     <label htmlFor="location">Location:</label>
-                    <input type="text" 
+                    <input type="text" placeholder="i.e. Panera"
                         name="location" onChange={this.handleChange}
                     />
+
+                    <AppointmentPrice priceRate={30} appointmentLength={this.state.appointmentLength} />
 
                     <button className="schedule-appointment-button">Schedule</button>
                 </form>
