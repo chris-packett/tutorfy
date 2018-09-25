@@ -4,7 +4,7 @@ class AppointmentHeader extends Component {
     render() {
         return (
             <div className="appointment-header">
-                <h2 className="appointment-header-text">Create Appointment</h2>
+                <h3 className="appointment-header-text">Create Appointment</h3>
             </div>
         );
     }

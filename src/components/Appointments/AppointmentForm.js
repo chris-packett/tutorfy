@@ -42,14 +42,24 @@ class AppointmentForm extends Component {
     }
 
     formatAppointmentLength = () => {
-        if (this.state.appointmentLength === "1") {
-            return `${this.state.appointmentLength} hour`
+        let total = this.state.appointmentLength
+
+        if (total === "0.5") {
+            let minutes = (total * 60);
+            return `${minutes} minutes`
         }
-        else if (this.state.appointmentLength % 1 === 0) {
-            return `${this.state.appointmentLength} hours`
+        else if (total === "1") {
+            return `${total} hour`
+        }
+        else if (total === "1.5") {
+            let hours = Math.floor(total)
+            let minutes = (total - hours) * 60
+            return `${hours} hour and ${minutes} minutes`
+        }
+        else if (total % 1 === 0) {
+            return `${total} hours`
         }
         else {
-            let total = this.state.appointmentLength
             let hours = Math.floor(total)
             let minutes = (total - hours) * 60
             return `${hours} hours and ${minutes} minutes`
