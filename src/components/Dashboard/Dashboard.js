@@ -22,7 +22,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-                <h3 className="text-center mt-4">Your Appointments:</h3>
+                <h6 className="pl-4 font-weight-bold">Your Appointments:</h6>
                 <AppointmentList appointments={this.state.appointments} />
             </div>
         );

@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <div className="app">
-          <div className="top-container">
+          <div className="top-container sticky-top mb-4">
             <img src="/assets/logo-v2.png" alt="logo" id="logo"/>
           </div>
           <Menu />
