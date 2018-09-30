@@ -26,9 +26,7 @@ class AppointmentForm extends Component {
         let appointmentData = {
             "StartTime": moment(`${this.state.date}T${this.state.startTime}`, moment.HTML5_FMT.DATETIME_LOCAL).format(),
             "AppointmentLength": this.state.appointmentLength,
-            "Location": this.state.location,
-            "StudentId": 1,
-            "TutorId": 2
+            "Location": this.state.location
         }
 
         fetch('https://localhost:5001/api/appointments/add', {

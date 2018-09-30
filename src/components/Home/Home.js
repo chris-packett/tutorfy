@@ -1,41 +1,34 @@
 import React, { Component } from 'react';
 
 class Home extends Component {
-    goTo(route) {
-        this.props.history.replace(`/${route}`)
-    }
-
     login() {
-        this.props.auth.login()
-    }
-
-    logout() {
-        this.props.auth.logout()
+        this.props.auth.login();
     }
 
     render() {
         const { isAuthenticated } = this.props.auth
 
         return (
-            <div>
+            <div className="container">
                 {
-                    !isAuthenticated() && (
-                        <button 
-                            className="btn btn-primary"
-                            onClick={this.login.bind(this)}
-                        >
-                            Log In
-                        </button>
+                    isAuthenticated() && (
+                        <h6>
+                            You are logged in!
+                        </h6>
                     )
                 }
                 {
-                    isAuthenticated() && (
-                        <button
-                            className="btn btn-primary"
-                            onClick={this.logout.bind(this)}
-                        >
-                            Log Out
-                        </button>
+                    !isAuthenticated() && (
+                        <h6>
+                            You are not logged in! Please{' '}
+                            <a
+                                style={{ cursor: 'pointer', fontWeight: 'bold', textDecoration: 'underline' }}
+                                onClick={this.login.bind(this)}
+                            >
+                                Log In
+                            </a>
+                            {' '}to continue.
+                        </h6>
                     )
                 }
             </div>
