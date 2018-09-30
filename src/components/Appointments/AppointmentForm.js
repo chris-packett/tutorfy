@@ -22,11 +22,15 @@ class AppointmentForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
+
         let appointmentData = {
             "StartTime": moment(`${this.state.date}T${this.state.startTime}`, moment.HTML5_FMT.DATETIME_LOCAL).format(),
             "AppointmentLength": this.state.appointmentLength,
             "Location": this.state.location,
+            "StudentId": 1,
+            "TutorId": 2
         }
+
         fetch('https://localhost:5001/api/appointments/add', {
             method: "POST",
             headers: {
@@ -71,23 +75,36 @@ class AppointmentForm extends Component {
             <div className="appointment-form-container">
                 <form className="appointment-form" onSubmit={this.handleSubmit}>
                     <label htmlFor="date">Date:</label>
-                    <input type="date" 
-                        name="date" onChange={this.handleChange}
+                    <input 
+                        type="date" 
+                        name="date" 
+                        onChange={this.handleChange}
                     />
 
                     <label htmlFor="startTime">Start Time:</label>
-                    <input type="time" 
-                        name="startTime" onChange={this.handleChange}
+                    <input 
+                        type="time" 
+                        name="startTime" 
+                        onChange={this.handleChange}
                     />
 
                     <label htmlFor="appointmentLength">How long: <span>{this.formatAppointmentLength()}</span></label>
-                    <input type="range" min="0" max="5" step=".5" value={this.state.appointmentLength}  
-                        name="appointmentLength" onChange={this.handleChange}
+                    <input 
+                        type="range" 
+                        min="0" 
+                        max="5" 
+                        step=".5" 
+                        value={this.state.appointmentLength}  
+                        name="appointmentLength" 
+                        onChange={this.handleChange}
                     />
 
                     <label htmlFor="location">Location:</label>
-                    <input type="text" placeholder="i.e. Panera"
-                        name="location" onChange={this.handleChange}
+                    <input 
+                        type="text" 
+                        placeholder="i.e. Panera"
+                        name="location" 
+                        onChange={this.handleChange}
                     />
 
                     <AppointmentPrice priceRate={30} appointmentLength={this.state.appointmentLength} />
