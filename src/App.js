@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Router, Switch, Route } from 'react-router-dom';
 import history from './history'
-import AppointmentsPage from './components/Appointments/AppointmentsPage'
+import Home from './components/Home/Home'
 import Dashboard from './components/Dashboard/Dashboard'
+import AppointmentsPage from './components/Appointments/AppointmentsPage'
+import './App.css';
 
 class App extends Component {
   goTo(route) {
@@ -21,20 +22,20 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth
 
     return (
-      <Router history={history} >
+      <Router history={history}>
         <div className="app">
           <div className="top-container sticky-top">
             <img src="/assets/logo-v2.png" alt="logo" id="logo" />
             {
               !isAuthenticated() && (
-                <button className="btn btn-outline-dark btn-sm auth-button" onClick={this.login.bind(this)}>
+                <button className="btn btn-outline-dark btn-sm" onClick={this.login.bind(this)}>
                   Log In
                 </button>
               )
             }
             {
               isAuthenticated() && (
-                <button className="btn btn-outline-dark btn-sm auth-button" onClick={this.logout.bind(this)}>
+                <button className="btn btn-outline-dark btn-sm" onClick={this.logout.bind(this)}>
                   Log Out
                 </button>
               )
@@ -42,8 +43,9 @@ class App extends Component {
           </div>
           <div className="app-component">
             <Switch>
-              <Route path="/appointment/add" exact component={AppointmentsPage} />
+              <Route path="/home" exact render={(props) => <Home auth={this.props.auth} {...props} />} />
               <Route path="/dashboard" exact component={Dashboard} />
+              <Route path="/appointment/add" exact component={AppointmentsPage} />
             </Switch>
           </div>
         </div>

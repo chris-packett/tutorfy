@@ -19,6 +19,19 @@
     width: 25%;
 }
 
+.home-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.home-page-get-started-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .appointments-page {
     display: flex;
     flex-direction: column;
