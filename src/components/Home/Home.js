@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
 class Home extends Component {
+
     login() {
         this.props.auth.login();
     }
 
-    
+    handleUserType = (userType) => {
+        localStorage.setItem('user_type', userType);
+    }
+
     render() {
         const { isAuthenticated } = this.props.auth
         const style = { cursor: 'pointer', fontWeight: 'bold', textDecoration: 'underline' }
@@ -26,8 +30,8 @@ class Home extends Component {
                     </h6> 
                 ) }
                 <div className="home-page-get-started-buttons">
-                    <button className="btn btn-dark btn-md">I'm a Student</button>
-                    <button className="btn btn-dark btn-md">I'm a Tutor</button>
+                    <button className="btn btn-dark btn-md" onClick={() => this.handleUserType("student")}>I'm a Student</button>
+                    <button className="btn btn-dark btn-md" onClick={() => this.handleUserType("tutor")}>I'm a Tutor</button>
                 </div>
             </div>
         );

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import history from './history'
-import Home from './components/Home/Home'
-import Dashboard from './components/Dashboard/Dashboard'
-import AppointmentsPage from './components/Appointments/AppointmentsPage'
+import Home from './Components/Home/Home'
+import Dashboard from './Components/Dashboard/Dashboard'
+import AppointmentsPage from './Components/Appointments/AppointmentsPage'
 import './App.css';
 
 class App extends Component {
