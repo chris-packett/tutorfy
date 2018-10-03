@@ -19,10 +19,19 @@ class Dashboard extends Component {
         })
     }
 
+    firstLetterCapitalNickName = (nickname) => {
+        if (nickname) {
+            return nickname.charAt(0).toUpperCase() + nickname.slice(1);
+        }
+    }
+
     render() {
+        const profile = this.props.profile
+        const nickname = this.firstLetterCapitalNickName(profile.nickname)
+
         return (
             <div>
-                <h6 className="font-weight-bold pl-4 mt-4">Your Appointments:</h6>
+                <h6 className="font-weight-bold pl-4 mt-4">Here are your Appointments, {nickname}:</h6>
                 <AppointmentList appointments={this.state.appointments} />
             </div>
         );

@@ -19,12 +19,17 @@
     width: 25%;
 }
 
+.top-container-profile-pic {
+    width: 33%;
+    border-radius: 20em;
+}
+
 .home-page {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
-    height: 100%;
+    height: 50%;
 }
 
 .home-page-get-started-buttons {

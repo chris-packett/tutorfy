@@ -23,7 +23,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      profile: {}
     }
   }
 
@@ -36,9 +37,26 @@ class App extends Component {
   
   checkAuth() {
     if (auth.isAuthenticated()) {
+      this.checkProfile();
       this.setState({
         isLoggedIn: true
       })
+    }
+  }
+  
+  checkProfile() {
+    const { userProfile, getProfile } = auth
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({
+          profile
+        });
+      });
+    }
+    else {
+      this.setState({
+        profile: userProfile
+      });
     }
   }
   
@@ -54,12 +72,13 @@ class App extends Component {
   }
 
   render() {
-    const isLoggedIn = this.state.isLoggedIn
+    const { isLoggedIn, profile } = this.state
 
     return (
       <Router history={history}>
         <div className="app">
           <div className="top-container sticky-top">
+            {/* https://imgur.com/0vd22AD */}
             <img src="/assets/logo-v2.png" alt="logo" id="logo" />
             {
               !isLoggedIn && (
@@ -70,16 +89,21 @@ class App extends Component {
             }
             {
               isLoggedIn && (
-                <button className="btn btn-outline-dark btn-sm" onClick={this.logout.bind(this)}>
-                  Log Out
-                </button>
+                <div className="d-flex justify-content-between align-items-center w-25">
+                  <img src={profile.picture} className="top-container-profile-pic" alt="profile-pic" />
+                  <button className="btn btn-outline-dark btn-sm" onClick={this.logout.bind(this)}>
+                    Log Out
+                  </button>
+                </div>
               )
             }
           </div>
           <div className="app-component">
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/dashboard" exact component={Dashboard} />
+              <Route path="/dashboard" render={(props) => {
+                return <Dashboard profile={profile} {...props} />
+              }} />
               <Route path="/appointment/add" exact component={AppointmentsPage} />
               <Route path="/callback" render={(props) => {
                 handleAuthentication(props);
