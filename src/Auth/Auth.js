@@ -6,6 +6,7 @@ export default class Auth {
     domain: 'tutorfy.auth0.com',
     clientID: 'Mp7YgF7f85LLtwPPEOTnC4xdW3aKy9Mm',
     redirectUri: 'http://localhost:3000/callback',
+    audience: 'https://tutorfy.api',
     responseType: 'token id_token',
     scope: 'openid profile'
   });
