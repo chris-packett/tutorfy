@@ -48,12 +48,14 @@ class App extends Component {
     const { userProfile, getProfile } = auth
     if (!userProfile) {
       getProfile((err, profile) => {
+        console.log(profile)
         this.setState({
           profile
         });
       });
     }
     else {
+      console.log(userProfile)
       this.setState({
         profile: userProfile
       });
