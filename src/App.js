@@ -49,9 +49,31 @@ class App extends Component {
     if (!userProfile) {
       getProfile((err, profile) => {
         console.log(profile)
-        this.setState({
-          profile
-        });
+
+        const userType = localStorage.getItem('user_type');
+
+        let userData = {
+          "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
+          "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
+          "IsStudent": (userType === 'student'),
+          "IsTutor": (userType === 'tutor')
+        }
+
+        fetch("https://localhost:5001/api/users/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": "Bearer " + auth.getAccessToken()
+          },
+          body: JSON.stringify(userData)
+        })
+        .then(resp => resp.json())
+        .then(userData => {
+          console.log(userData)
+          this.setState({
+            profile
+          });
+        })
       });
     }
     else {
