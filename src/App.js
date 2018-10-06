@@ -62,14 +62,14 @@ class App extends Component {
   createUser = (profile) => {
     console.log(profile)
 
-    this.createUserAsync(profile)
-      .then(userData => {
-        console.log(userData)
+    this.createUserAndUserTypeAsync(profile)
+      .then(userAndUserTypeData => {
+        console.log(userAndUserTypeData)
         this.setState({ profile });
       })
   }
 
-  async createUserAsync (profile) {
+  async createUserAndUserTypeAsync (profile) {
     const userType = localStorage.getItem('user_type');
   
     let userData = {
@@ -79,7 +79,7 @@ class App extends Component {
       "IsTutor": (userType === 'tutor')
     }
   
-    let options = {
+    let userOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -88,11 +88,32 @@ class App extends Component {
       body: JSON.stringify(userData)
     }
   
-    let response = await fetch("https://localhost:5001/api/users/add", options)
+    let userFetchResponse = await fetch("https://localhost:5001/api/users/add", userOptions)
 
-    let data = await response.json()
+    let userFetchData = await userFetchResponse.json()
 
-    return data
+    let userTypeData = {
+      "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
+      "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
+    }
+
+    let userTypeOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": "Bearer " + auth.getAccessToken()
+      },
+      body: JSON.stringify(userTypeData)
+    }
+
+    let userTypeFetchResponse = await fetch(`https://localhost:5001/api/${userType}s/add`, userTypeOptions)
+
+    let userTypeFetchData = await userTypeFetchResponse.json()
+
+    return {
+      user: userFetchData,
+      userType: userTypeFetchData
+    }
   }
     
   login() {
