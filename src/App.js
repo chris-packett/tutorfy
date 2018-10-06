@@ -30,69 +30,78 @@ class App extends Component {
 
   componentDidMount() {
     history.listen(() => {
-      this.checkAuth()
+      this.updateLoginState()
+      if (!Object.keys(this.state.profile).length) {
+        this.checkProfile()
+      }
     })
-    this.checkAuth()
+    this.updateLoginState()
+    this.checkProfile()
   }
   
-  checkAuth() {
+  updateLoginState() {
     if (auth.isAuthenticated()) {
-      this.checkProfile();
-      this.setState({
-        isLoggedIn: true
-      })
+      this.setState({ isLoggedIn: true })
     }
   }
-  
+
   checkProfile() {
-    const { userProfile, getProfile } = auth
-    if (!userProfile) {
-      getProfile((err, profile) => {
-        console.log(profile)
-
-        const userType = localStorage.getItem('user_type');
-
-        let userData = {
-          "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
-          "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
-          "IsStudent": (userType === 'student'),
-          "IsTutor": (userType === 'tutor')
-        }
-
-        fetch("https://localhost:5001/api/users/add", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "Authorization": "Bearer " + auth.getAccessToken()
-          },
-          body: JSON.stringify(userData)
-        })
-        .then(resp => resp.json())
-        .then(userData => {
-          console.log(userData)
-          this.setState({
-            profile
-          });
-        })
-      });
-    }
-    else {
-      console.log(userProfile)
-      this.setState({
-        profile: userProfile
-      });
+    if (auth.isAuthenticated()) {
+      const { userProfile, getProfile } = auth
+      
+      if (!userProfile) {
+        getProfile((err, profile) => this.createUser(profile));
+      }
+      else {
+        console.log(userProfile)
+        this.setState({ profile: userProfile });
+      }
     }
   }
   
+  createUser = (profile) => {
+    console.log(profile)
+
+    this.createUserAsync(profile)
+      .then(userData => {
+        console.log(userData)
+        this.setState({ profile });
+      })
+  }
+
+  async createUserAsync (profile) {
+    const userType = localStorage.getItem('user_type');
+  
+    let userData = {
+      "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
+      "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
+      "IsStudent": (userType === 'student'),
+      "IsTutor": (userType === 'tutor')
+    }
+  
+    let options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": "Bearer " + auth.getAccessToken()
+      },
+      body: JSON.stringify(userData)
+    }
+  
+    let response = await fetch("https://localhost:5001/api/users/add", options)
+
+    let data = await response.json()
+
+    return data
+  }
+    
   login() {
       auth.login()
   }
 
   logout() {
       auth.logout()
-      this.setState({
-        isLoggedIn: false
-      })
+      this.setState({ isLoggedIn: false })
   }
 
   render() {
