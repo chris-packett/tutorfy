@@ -109,7 +109,7 @@ class AppointmentForm extends Component {
                         onChange={this.handleChange}
                     />
 
-                    <AppointmentPrice priceRate={30} appointmentLength={this.state.appointmentLength} />
+                    <AppointmentPrice priceRate={this.props.tutorPrice} appointmentLength={this.state.appointmentLength} />
 
                     <button className="schedule-appointment-button">Schedule</button>
                 </form>

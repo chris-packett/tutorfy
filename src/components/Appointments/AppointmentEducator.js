@@ -5,7 +5,7 @@ class AppointmentEducator extends Component {
         return (
             <div className="appointment-educator">
                 <img src="/assets/linkedinpic.jpg" alt="pic" id="profile-pic" />
-                <h5 className="profile-name">Chris Packett</h5>
+                <h5 className="profile-name">{this.props.tutor.name}</h5>
                 <img src="/assets/ratingsSample.png" alt="rating-pic" id="ratings-pic" />
             </div>
         );

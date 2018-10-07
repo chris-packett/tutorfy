@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import AppointmentEducator from './AppointmentEducator'
-import AppointmentForm from './AppointmentForm'
-import AppointmentHeader from './AppointmentHeader'
+import { Link } from 'react-router-dom'
 
-class AppointmentsPage extends Component {
+class ProfilePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,13 +23,14 @@ class AppointmentsPage extends Component {
 
     render() {
         return (
-            <div className="appointments-page">
-                <AppointmentHeader />
-                <AppointmentEducator tutor={this.state.tutor} />
-                <AppointmentForm tutorPrice={this.state.tutor.hourlyRate} />
+            <div className="p-2 profile-page">
+                <div className="d-flex w-100">
+                    <Link to="/dashboard" className="btn btn-dark btn-sm">Back</Link>
+                </div>
+                <Link to={`/appointment/add/tutor/${this.props.match.params.id}`} className="btn btn-dark btn-md">Schedule an Appointment</Link>
             </div>
         );
     }
 }
 
-export default AppointmentsPage;
+export default ProfilePage;

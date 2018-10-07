@@ -72,6 +72,14 @@
     height: 25%;
 }
 
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
 #profile-pic {
     width: 25%;
     border-radius: 20em;

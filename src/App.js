@@ -3,6 +3,7 @@ import { Router, Switch, Route } from 'react-router-dom';
 
 import Home from './Components/Home/Home'
 import Dashboard from './Components/Dashboard/Dashboard'
+import ProfilePage from './Components/Profile/ProfilePage'
 import AppointmentsPage from './Components/Appointments/AppointmentsPage'
 
 import Callback from './Callback/Callback'
@@ -165,7 +166,8 @@ class App extends Component {
               <Route path="/dashboard" render={(props) => {
                 return <Dashboard profile={profile} {...props} />
               }} />
-              <Route path="/appointment/add" exact component={AppointmentsPage} />
+              <Route path="/profile/:id" exact component={ProfilePage} />
+              <Route path="/appointment/add/tutor/:id" exact component={AppointmentsPage} />
               <Route path="/callback" render={(props) => {
                 handleAuthentication(props);
                 return <Callback {...props} /> 
