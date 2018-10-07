@@ -31,9 +31,10 @@ class App extends Component {
   componentDidMount() {
     history.listen(() => {
       this.updateLoginState()
-      if (!Object.keys(this.state.profile).length) {
-        this.checkProfile()
-      }
+      // if (!Object.keys(this.state.profile).length) {
+      //   this.checkProfile()
+      // }
+      this.checkProfile()
     })
     this.updateLoginState()
     this.checkProfile()
@@ -50,7 +51,11 @@ class App extends Component {
       const { userProfile, getProfile } = auth
       
       if (!userProfile) {
-        getProfile((err, profile) => this.createUser(profile));
+        // getProfile((err, profile) => this.createUser(profile));
+        getProfile((err, profile) => {
+          console.log(profile)
+          this.setState({ profile })
+        })
       }
       else {
         console.log(userProfile)
@@ -59,62 +64,64 @@ class App extends Component {
     }
   }
   
-  createUser = (profile) => {
-    console.log(profile)
+  // createUser = (profile) => {
+  //   console.log(profile)
 
-    this.createUserAndUserTypeAsync(profile)
-      .then(userAndUserTypeData => {
-        console.log(userAndUserTypeData)
-        this.setState({ profile });
-      })
-  }
+  //   this.createUserAndUserTypeAsync(profile)
+  //     .then(userAndUserTypeData => {
+  //       console.log(userAndUserTypeData)
+  //       this.setState({ profile });
+  //     })
+  // }
 
-  async createUserAndUserTypeAsync (profile) {
-    const userType = localStorage.getItem('user_type');
+  // async createUserAndUserTypeAsync (profile) {
+  //   const API_URL = "https://localhost:5001/api"
+
+  //   const userType = localStorage.getItem('user_type');
   
-    let userData = {
-      "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
-      "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
-      "IsStudent": (userType === 'student'),
-      "IsTutor": (userType === 'tutor')
-    }
+  //   let userData = {
+  //     "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
+  //     "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
+  //     "IsStudent": (userType === 'student'),
+  //     "IsTutor": (userType === 'tutor')
+  //   }
   
-    let userOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Authorization": "Bearer " + auth.getAccessToken()
-      },
-      body: JSON.stringify(userData)
-    }
+  //   let userOptions = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json; charset=utf-8",
+  //       "Authorization": "Bearer " + auth.getAccessToken()
+  //     },
+  //     body: JSON.stringify(userData)
+  //   }
   
-    let userFetchResponse = await fetch("https://localhost:5001/api/users/add", userOptions)
+  //   let userFetchResponse = await fetch(`${API_URL}/users/add`, userOptions)
 
-    let userFetchData = await userFetchResponse.json()
+  //   let userFetchData = await userFetchResponse.json()
 
-    let userTypeData = {
-      "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
-      "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
-    }
+  //   let userTypeData = {
+  //     "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
+  //     "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
+  //   }
 
-    let userTypeOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Authorization": "Bearer " + auth.getAccessToken()
-      },
-      body: JSON.stringify(userTypeData)
-    }
+  //   let userTypeOptions = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json; charset=utf-8",
+  //       "Authorization": "Bearer " + auth.getAccessToken()
+  //     },
+  //     body: JSON.stringify(userTypeData)
+  //   }
 
-    let userTypeFetchResponse = await fetch(`https://localhost:5001/api/${userType}s/add`, userTypeOptions)
+  //   let userTypeFetchResponse = await fetch(`${API_URL}/${userType}s/add`, userTypeOptions)
 
-    let userTypeFetchData = await userTypeFetchResponse.json()
+  //   let userTypeFetchData = await userTypeFetchResponse.json()
 
-    return {
-      user: userFetchData,
-      userType: userTypeFetchData
-    }
-  }
+  //   return {
+  //     user: userFetchData,
+  //     userType: userTypeFetchData
+  //   }
+  // }
     
   login() {
       auth.login()

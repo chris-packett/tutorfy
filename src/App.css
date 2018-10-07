@@ -24,6 +24,11 @@
     border-radius: 20em;
 }
 
+.tutor-list-profile-pic {
+    width: 45%;
+    border-radius: 20em;
+}
+
 .home-page {
     display: flex;
     flex-direction: column;

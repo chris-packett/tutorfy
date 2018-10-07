@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import history from '../../history'
 import AppointmentPrice from './AppointmentPrice'
 import moment from 'moment'
+// import Auth from '../../Auth/Auth';
+
+// const auth = new Auth();
 
 class AppointmentForm extends Component {
     constructor(props) {
@@ -33,6 +36,7 @@ class AppointmentForm extends Component {
             method: "POST",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
+                // "Authorization": "Bearer " + auth.getAccessToken()
             },
             body: JSON.stringify(appointmentData)
         })
