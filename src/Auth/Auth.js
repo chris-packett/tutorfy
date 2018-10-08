@@ -29,6 +29,7 @@ export default class Auth {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
+        this.createUser();
         history.replace('/dashboard');
       } else if (err) {
         history.replace('/');
@@ -79,5 +80,68 @@ export default class Auth {
       }
       cb(err, profile);
     });
+  }
+
+  createUser = () => {
+    if (!this.userProfile) {
+      this.getProfile((err, profile) => {
+        this.createUserAndUserTypeAsync(profile)
+          .then(userAndUserTypeData => {
+            console.log(userAndUserTypeData)
+          })
+      })
+    }
+    else {
+      console.log(this.userProfile)
+    }
+  }
+
+  async createUserAndUserTypeAsync (profile) {
+    const API_URL = "https://localhost:5001/api"
+
+    const userType = localStorage.getItem('user_type');
+  
+    let userData = {
+      "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
+      "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
+      "IsStudent": (userType === 'student'),
+      "IsTutor": (userType === 'tutor')
+    }
+  
+    let userOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": "Bearer " + this.getAccessToken()
+      },
+      body: JSON.stringify(userData)
+    }
+  
+    let userFetchResponse = await fetch(`${API_URL}/users/add`, userOptions)
+
+    let userFetchData = await userFetchResponse.json()
+
+    let userTypeData = {
+      "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
+      "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
+    }
+
+    let userTypeOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": "Bearer " + this.getAccessToken()
+      },
+      body: JSON.stringify(userTypeData)
+    }
+
+    let userTypeFetchResponse = await fetch(`${API_URL}/${userType}s/add`, userTypeOptions)
+
+    let userTypeFetchData = await userTypeFetchResponse.json()
+
+    return {
+      user: userFetchData,
+      userType: userTypeFetchData
+    }
   }
 }
