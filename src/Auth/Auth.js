@@ -121,9 +121,20 @@ export default class Auth {
 
     let userFetchData = await userFetchResponse.json()
 
-    let userTypeData = {
-      "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
-      "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
+    let userTypeData;
+
+    if (userType === 'student') {
+      userTypeData = {
+        "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
+        "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || ""
+      }
+    }
+    else if (userType === 'tutor') {
+      userTypeData = {
+        "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
+        "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
+        "PictureURL": profile['picture']
+      }  
     }
 
     let userTypeOptions = {

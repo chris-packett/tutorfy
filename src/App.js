@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route, Link } from 'react-router-dom';
 
 import Home from './Components/Home/Home'
 import Dashboard from './Components/Dashboard/Dashboard'
@@ -78,7 +78,7 @@ class App extends Component {
         <div className="app">
           <div className="top-container sticky-top">
             {/* https://imgur.com/0vd22AD */}
-            <img src="/assets/logo-v2.png" alt="logo" id="logo" />
+            <Link to="/dashboard"><img src="/assets/logo-v2.png" alt="logo" id="logo" /></Link>
             {
               !isLoggedIn && (
                 <button className="btn btn-outline-dark btn-sm" onClick={this.login.bind(this)}>

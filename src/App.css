@@ -81,8 +81,9 @@
 }
 
 #profile-pic {
-    width: 25%;
-    border-radius: 20em;
+    width: 23%;
+    height: 69%;
+    border-radius: 100%;
     border: 2px solid white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-bottom: .5em;
