@@ -9,6 +9,7 @@ class TutorList extends Component {
                     return (
                         <div key={tutor.id} className="d-flex flex-column justify-content-center align-items-center">
                             <Link to={`/profile/${tutor.id}`} className="d-flex justify-content-center align-items-center">
+                                {/* add dynamic picture */}
                                 <img src={this.props.profileTest.picture} alt="test-pic" className="tutor-list-profile-pic mb-1" />
                             </Link>
                             <h6>{tutor.name}</h6>

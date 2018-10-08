@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import history from '../../history'
 import AppointmentPrice from './AppointmentPrice'
 import moment from 'moment'
-// import Auth from '../../Auth/Auth';
+import Auth from '../../Auth/Auth';
 
-// const auth = new Auth();
+const auth = new Auth();
 
 class AppointmentForm extends Component {
     constructor(props) {
@@ -26,17 +26,20 @@ class AppointmentForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
 
+        console.log(this.props.tutor)
+
         let appointmentData = {
             "StartTime": moment(`${this.state.date}T${this.state.startTime}`, moment.HTML5_FMT.DATETIME_LOCAL).format(),
             "AppointmentLength": this.state.appointmentLength,
-            "Location": this.state.location
+            "Location": this.state.location,
+            "TutorId": this.props.tutor.id
         }
 
         fetch('https://localhost:5001/api/appointments/add', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
-                // "Authorization": "Bearer " + auth.getAccessToken()
+                "Authorization": "Bearer " + auth.getAccessToken()
             },
             body: JSON.stringify(appointmentData)
         })
@@ -109,7 +112,7 @@ class AppointmentForm extends Component {
                         onChange={this.handleChange}
                     />
 
-                    <AppointmentPrice priceRate={this.props.tutorPrice} appointmentLength={this.state.appointmentLength} />
+                    <AppointmentPrice priceRate={this.props.tutor.hourlyRate} appointmentLength={this.state.appointmentLength} />
 
                     <button className="schedule-appointment-button">Schedule</button>
                 </form>

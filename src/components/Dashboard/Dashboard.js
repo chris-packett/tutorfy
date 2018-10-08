@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-// import Auth from '../../Auth/Auth'
+import Auth from '../../Auth/Auth'
 import TutorList from './TutorList'
 import AppointmentList from './AppointmentList'
 
-// const auth = new Auth();
+const auth = new Auth();
 
 class Dashboard extends Component {
     constructor(props) {
@@ -15,16 +15,16 @@ class Dashboard extends Component {
     }
     
     componentDidMount() {
-        // let options = {
-        //     headers: {
-        //       "Authorization": "Bearer " + auth.getAccessToken()
-        //     }
-        // }
+        let options = {
+            headers: {
+              "Authorization": "Bearer " + auth.getAccessToken()
+            }
+        }
 
-        // fetch('https://localhost:5001/api/appointments', options)
-        fetch('https://localhost:5001/api/appointments')
+        fetch('https://localhost:5001/api/appointments', options)
         .then(resp => resp.json())
         .then(appointmentsData => {
+            console.log(appointmentsData)
             this.setState({
                 appointments: appointmentsData.results
             })

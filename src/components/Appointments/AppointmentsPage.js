@@ -28,7 +28,7 @@ class AppointmentsPage extends Component {
             <div className="appointments-page">
                 <AppointmentHeader />
                 <AppointmentEducator tutor={this.state.tutor} />
-                <AppointmentForm tutorPrice={this.state.tutor.hourlyRate} />
+                <AppointmentForm tutor={this.state.tutor} />
             </div>
         );
     }
