@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import Auth from '../../Auth/Auth';
 import history from '../../history'
 import AppointmentPrice from './AppointmentPrice'
 import moment from 'moment'
-import Auth from '../../Auth/Auth';
 
 const auth = new Auth();
 
@@ -28,24 +28,26 @@ class AppointmentForm extends Component {
 
         console.log(this.props.tutor)
 
-        let appointmentData = {
+        let appointmentInfo = {
             "StartTime": moment(`${this.state.date}T${this.state.startTime}`, moment.HTML5_FMT.DATETIME_LOCAL).format(),
             "AppointmentLength": this.state.appointmentLength,
             "Location": this.state.location,
             "TutorId": this.props.tutor.id
         }
 
-        fetch('https://localhost:5001/api/appointments/add', {
+        let appointmentOptions = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": "Bearer " + auth.getAccessToken()
             },
-            body: JSON.stringify(appointmentData)
-        })
+            body: JSON.stringify(appointmentInfo)
+        }
+
+        fetch('https://localhost:5001/api/appointments/add', appointmentOptions)
         .then(resp => resp.json())
-        .then(appointmentData => {
-            console.log(appointmentData)
+        .then(appointmentJSON => {
+            console.log(appointmentJSON)
             history.push('/dashboard')
         })
     }

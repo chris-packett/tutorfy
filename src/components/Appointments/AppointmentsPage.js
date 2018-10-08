@@ -11,15 +11,12 @@ class AppointmentsPage extends Component {
         }
     }
     
-
     componentDidMount() {
         fetch(`https://localhost:5001/api/tutors/profile/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(tutorData => {
             console.log(tutorData)
-            this.setState({
-                tutor: tutorData.results
-            })
+            this.setState({ tutor: tutorData.results })
         })
     }
 

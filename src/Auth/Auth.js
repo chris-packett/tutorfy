@@ -11,8 +11,6 @@ export default class Auth {
     scope: 'openid profile'
   });
 
-  userProfile;
-
   constructor() {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -20,9 +18,20 @@ export default class Auth {
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getProfile = this.getProfile.bind(this);
   }
+  
+  userProfile;
 
   login() {
     this.auth0.authorize();
+  }
+
+  logout() {
+    // Clear Access Token and ID Token from local storage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    // navigate to the home route
+    history.replace('/');
   }
 
   handleAuthentication() {
@@ -48,14 +57,6 @@ export default class Auth {
     history.replace('/');
   }
 
-  logout() {
-    // Clear Access Token and ID Token from local storage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    // navigate to the home route
-    history.replace('/');
-  }
 
   isAuthenticated() {
     // Check whether the current time is past the 
@@ -63,15 +64,7 @@ export default class Auth {
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
-
-  getAccessToken() {
-    const accessToken = localStorage.getItem('access_token');
-    if (!accessToken) {
-      throw new Error('No Access Token found');
-    }
-    return accessToken;
-  }
-
+  
   getProfile(cb) {
     let accessToken = this.getAccessToken();
     this.auth0.client.userInfo(accessToken, (err, profile) => {
@@ -85,7 +78,7 @@ export default class Auth {
   createUser = () => {
     if (!this.userProfile) {
       this.getProfile((err, profile) => {
-        this.createUserAndUserTypeAsync(profile)
+        this.postUserToDatabase(profile)
           .then(userAndUserTypeData => {
             console.log(userAndUserTypeData)
           })
@@ -96,12 +89,13 @@ export default class Auth {
     }
   }
 
-  async createUserAndUserTypeAsync (profile) {
+  async postUserToDatabase (profile) {
     const API_URL = "https://localhost:5001/api"
 
+    //Either a tutor or a student
     const userType = localStorage.getItem('user_type');
   
-    let userData = {
+    let userInfo = {
       "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
       "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
       "IsStudent": (userType === 'student'),
@@ -114,23 +108,23 @@ export default class Auth {
         "Content-Type": "application/json; charset=utf-8",
         "Authorization": "Bearer " + this.getAccessToken()
       },
-      body: JSON.stringify(userData)
+      body: JSON.stringify(userInfo)
     }
   
-    let userFetchResponse = await fetch(`${API_URL}/users/add`, userOptions)
+    let postedUserResponse = await fetch(`${API_URL}/users/add`, userOptions)
 
-    let userFetchData = await userFetchResponse.json()
+    let postedUserJSON = await postedUserResponse.json()
 
-    let userTypeData;
+    let userTypeInfo;
 
     if (userType === 'student') {
-      userTypeData = {
+      userTypeInfo = {
         "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
         "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || ""
       }
     }
     else if (userType === 'tutor') {
-      userTypeData = {
+      userTypeInfo = {
         "Name": profile['https://tutorfy:auth0:com/full_name'] || profile.given_name,
         "ZipCode": profile['https://tutorfy:auth0:com/zip_code'] || "",
         "PictureURL": profile['picture']
@@ -143,16 +137,24 @@ export default class Auth {
         "Content-Type": "application/json; charset=utf-8",
         "Authorization": "Bearer " + this.getAccessToken()
       },
-      body: JSON.stringify(userTypeData)
+      body: JSON.stringify(userTypeInfo)
     }
 
-    let userTypeFetchResponse = await fetch(`${API_URL}/${userType}s/add`, userTypeOptions)
+    let postedUserTypeResponse = await fetch(`${API_URL}/${userType}s/add`, userTypeOptions)
 
-    let userTypeFetchData = await userTypeFetchResponse.json()
+    let postedUserTypeJSON = await postedUserTypeResponse.json()
 
     return {
-      user: userFetchData,
-      userType: userTypeFetchData
+      user: postedUserJSON,
+      userType: postedUserTypeJSON
     }
+  }
+
+  getAccessToken() {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('No Access Token found');
+    }
+    return accessToken;
   }
 }
