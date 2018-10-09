@@ -1,13 +1,25 @@
 {
     "questions": [
         {
-            "question": "What is your personality type?"
+            "question": "What is your personality type?",
+            "answers": [
+                "Extroverted",
+                "Introverted"
+            ]
         },
         {
-            "question": "What is your learning style?"
+            "question": "What is your learning style?",
+            "answers": [
+                "Visual",
+                "Auditory"
+            ]
         },
         {
-            "question": "Will you be taking the SAT or ACT?"
+            "question": "Will you be taking the SAT or ACT?",
+            "answers": [
+                "SAT",
+                "ACT"
+            ]
         }
     ]
 }
