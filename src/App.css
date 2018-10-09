@@ -9,6 +9,7 @@
 .top-container {
     height: 10%;
     background-image: linear-gradient(#ABE7DB, #7CCDBD);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.1);
     padding: 1em;
     display: flex;
     justify-content: space-between;
@@ -16,17 +17,57 @@
 }
 
 #logo {
-    width: 25%;
+    width: 33%;
+}
+
+.top-container-pic-and-button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .top-container-profile-pic {
-    width: 33%;
+    width: 30%;
     border-radius: 20em;
 }
 
-.tutor-list-profile-pic {
+.top-container-button {
+    margin-left: 1em;
+}
+
+.tutor-list-header {
+    font-weight: bold;
+    text-align: center;
+    color: #444444;
+}
+
+.tutor-list {
+    display: flex;
+    justify-content: center;
+}
+
+.tutor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tutor-card-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tutor-card-profile-pic {
     width: 45%;
     border-radius: 20em;
+    margin-bottom: 1em;
+}
+
+.appointment-list-header {
+    font-weight: bold;
+    color: #444444;
 }
 
 .home-page {
@@ -99,7 +140,6 @@
     width: 20%;
 }
 
-
 .appointment-form-container {
     height: 65%;
     width: 100%;
@@ -152,15 +192,15 @@
 
 @media screen and (min-width: 768px) {
     #logo {
-        width: 8%;
+        width: 27.5%;
     }
 
-    #profile-pic {
-        width: 8%;
+    .top-container-profile-pic {
+        width: 21.5%;
     }
 
-    #ratings-pic {
-        width: 8%;
+    .top-container-button {
+        margin-left: 1.5em;
     }
 }
 

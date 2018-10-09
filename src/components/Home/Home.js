@@ -10,7 +10,7 @@ class Home extends Component {
         auth.login();
     }
 
-    handleNewUser = (userType) => {
+    handleSetTypeOfNewUser = (userType) => {
         localStorage.setItem('user_type', userType);
         this.login();
     }
@@ -36,8 +36,8 @@ class Home extends Component {
                             {' '}to continue.
                         </h6> 
                         <div className="home-page-get-started-buttons">
-                            <button className="btn btn-dark btn-md" onClick={() => this.handleNewUser("student")}>I'm a Student</button>
-                            <button className="btn btn-dark btn-md" onClick={() => this.handleNewUser("tutor")}>I'm a Tutor</button>
+                            <button className="btn btn-dark btn-md" onClick={() => this.handleSetTypeOfNewUser("student")}>I'm a Student</button>
+                            <button className="btn btn-dark btn-md" onClick={() => this.handleSetTypeOfNewUser("tutor")}>I'm a Tutor</button>
                         </div>
                     </div>
                 ) }

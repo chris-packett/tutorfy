@@ -3,6 +3,9 @@ import Auth from '../../Auth/Auth';
 import history from '../../history'
 import AppointmentPrice from './AppointmentPrice'
 import moment from 'moment'
+import momentDurationFormatSetup from 'moment-duration-format'
+
+momentDurationFormatSetup(moment);
 
 const auth = new Auth();
 
@@ -53,28 +56,29 @@ class AppointmentForm extends Component {
     }
 
     formatAppointmentLength = () => {
-        let total = this.state.appointmentLength
+        let hours = this.state.appointmentLength
+        return moment.duration(parseFloat(hours), "hours").format("h [hours], m [minutes]")
 
-        if (total === "0.5") {
-            let minutes = (total * 60);
-            return `${minutes} minutes`
-        }
-        else if (total === "1") {
-            return `${total} hour`
-        }
-        else if (total === "1.5") {
-            let hours = Math.floor(total)
-            let minutes = (total - hours) * 60
-            return `${hours} hour and ${minutes} minutes`
-        }
-        else if (total % 1 === 0) {
-            return `${total} hours`
-        }
-        else {
-            let hours = Math.floor(total)
-            let minutes = (total - hours) * 60
-            return `${hours} hours and ${minutes} minutes`
-        }
+        // if (hours === "0.5") {
+        //     let minutes = (hours * 60);
+        //     return `${minutes} minutes`
+        // }
+        // else if (hours === "1") {
+        //     return `${hours} hour`
+        // }
+        // else if (hours === "1.5") {
+        //     let hours = Math.floor(hours)
+        //     let minutes = (hours - hours) * 60
+        //     return `${hours} hour and ${minutes} minutes`
+        // }
+        // else if (hours % 1 === 0) {
+        //     return `${hours} hours`
+        // }
+        // else {
+        //     let hours = Math.floor(hours)
+        //     let minutes = (hours - hours) * 60
+        //     return `${hours} hours and ${minutes} minutes`
+        // }
     }
     
     render() {

@@ -29,6 +29,15 @@ class App extends Component {
     }
   }
 
+  login() {
+      auth.login()
+  }
+
+  logout() {
+      auth.logout()
+      this.setState({ isLoggedIn: false })
+  }
+
   componentDidMount() {
     history.listen(() => {
       this.updateLoginState()
@@ -61,15 +70,6 @@ class App extends Component {
     }
   }
     
-  login() {
-      auth.login()
-  }
-
-  logout() {
-      auth.logout()
-      this.setState({ isLoggedIn: false })
-  }
-
   render() {
     const { isLoggedIn, profile } = this.state
 
@@ -88,9 +88,9 @@ class App extends Component {
             }
             {
               isLoggedIn && (
-                <div className="d-flex justify-content-between align-items-center w-25">
-                  <img src={profile.picture} className="top-container-profile-pic" alt="profile-pic" />
-                  <button className="btn btn-outline-dark btn-sm" onClick={this.logout.bind(this)}>
+                <div className="top-container-pic-and-button-container">
+                  <img src={profile.picture} alt="profile-pic" className="top-container-profile-pic"/>
+                  <button className="btn btn-outline-dark btn-sm top-container-button" onClick={this.logout.bind(this)}>
                     Log Out
                   </button>
                 </div>

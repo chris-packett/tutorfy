@@ -4,6 +4,7 @@ import TutorList from './TutorList'
 import AppointmentList from './AppointmentList'
 
 const auth = new Auth();
+const API_URL = "https://localhost:5001/api"
 
 class Dashboard extends Component {
     constructor(props) {
@@ -14,14 +15,14 @@ class Dashboard extends Component {
         }
     }
     
-    componentDidMount() {
+    getAppointments = () => {
         let options = {
             headers: {
               "Authorization": "Bearer " + auth.getAccessToken()
             }
         }
 
-        fetch('https://localhost:5001/api/appointments', options)
+        fetch(`${API_URL}/appointments`, options)
         .then(resp => resp.json())
         .then(appointmentsData => {
             console.log(appointmentsData)
@@ -29,8 +30,10 @@ class Dashboard extends Component {
                 appointments: appointmentsData.results
             })
         })
+    }
 
-        fetch('https://localhost:5001/api/tutors/top/3')
+    getTopThreeTutors = () => {
+        fetch(`${API_URL}/tutors/top/3`)
         .then(resp => resp.json())
         .then(tutorData => {
             console.log(tutorData.results)
@@ -38,6 +41,11 @@ class Dashboard extends Component {
                 tutors: tutorData.results
             })
         })
+    }
+    
+    componentDidMount() {
+        this.getAppointments()
+        this.getTopThreeTutors()
     }
 
     render() {
@@ -47,10 +55,14 @@ class Dashboard extends Component {
 
         return (
             <div>
-                <h6 className="font-weight-bold text-center mt-4">Your Top 3 Tutors!</h6>
+                <h6 className="tutor-list-header mt-4">
+                    Your Top 3 Tutors!
+                </h6>
                 <TutorList profileTest={this.props.profile} profileTestName={nameToDisplay} tutors={this.state.tutors} />
                 <hr/>
-                <h6 className="font-weight-bold pl-4 mt-4">Here are your Appointments, {nameToDisplay}:</h6>
+                <h6 className="appointment-list-header pl-4 mt-4">
+                    Here are your Appointments, {nameToDisplay}:
+                </h6>
                 <AppointmentList appointments={this.state.appointments} />
             </div>
         );
