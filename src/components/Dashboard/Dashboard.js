@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Auth from '../../Auth/Auth'
 import TutorList from './TutorList'
 import AppointmentList from './AppointmentList'
+import ChainedQuizModals from '../Quiz/ChainedQuizModals';
+import QuestionModal from '../Quiz/QuestionModal';
 
 const auth = new Auth();
 const API_URL = "https://localhost:5001/api"
@@ -64,6 +66,12 @@ class Dashboard extends Component {
                     Here are your Appointments, {nameToDisplay}:
                 </h6>
                 <AppointmentList appointments={this.state.appointments} />
+                <ChainedQuizModals 
+                    modalList={[
+                        QuestionModal, 
+                        QuestionModal, 
+                        QuestionModal
+                    ]} />
             </div>
         );
     }

@@ -1,0 +1,13 @@
+{
+    "questions": [
+        {
+            "question": "What is your personality type?"
+        },
+        {
+            "question": "What is your learning style?"
+        },
+        {
+            "question": "Will you be taking the SAT or ACT?"
+        }
+    ]
+}
