@@ -21,7 +21,6 @@ class Dashboard extends Component {
     
     componentDidMount() {
         this.getTopThreeTutors()
-        this.getAppointments()
     }
 
     componentDidUpdate() {
@@ -45,7 +44,10 @@ class Dashboard extends Component {
             console.log(userTypeData)
             this.setState({
                 userType: userTypeData.results || userType
-            }, () => this.isProfileCompleted())
+            }, () => {
+                this.isProfileCompleted()
+                this.getAppointments()
+            })
         })
     }
     
@@ -86,7 +88,7 @@ class Dashboard extends Component {
             }
         }
 
-        fetch(`${API_URL}/appointments`, options)
+        fetch(`${API_URL}/appointments/${this.state.userType}`, options)
         .then(resp => resp.json())
         .then(appointmentsData => {
             console.log(appointmentsData)
@@ -111,7 +113,10 @@ class Dashboard extends Component {
                 <h6 className="appointment-list-header pl-4 mt-4">
                     Here are your Appointments, {nameToDisplay}:
                 </h6>
-                <AppointmentList appointments={this.state.appointments} />
+                <AppointmentList 
+                    appointments={this.state.appointments} 
+                    userType={this.state.userType}
+                />
                 <ChainedQuizModals 
                     modalList={[QuestionModal, QuestionModal, QuestionModal]}
                     isProfileCompleted={this.state.isProfileCompleted}

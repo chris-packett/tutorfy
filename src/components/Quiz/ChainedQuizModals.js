@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Auth from "../../Auth/Auth"
-import history from "../../history"
+// import history from "../../history"
 
 const auth = new Auth();
 

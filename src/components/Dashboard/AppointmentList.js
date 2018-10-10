@@ -8,7 +8,10 @@ class AppointmentList extends Component {
                 {this.props.appointments.map(appointment => {
                     return (
                         <div key={appointment.id} className="col-md-12">
-                            <AppointmentCard appointment={appointment} />
+                            <AppointmentCard 
+                                appointment={appointment} 
+                                userType={this.props.userType}
+                            />
                         </div>
                     )
                 })}
