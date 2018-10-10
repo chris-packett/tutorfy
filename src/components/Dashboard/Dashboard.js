@@ -13,27 +13,61 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             appointments: [],
-            tutors: []
+            tutors: [],
+            userType: "",
+            isProfileCompleted: true
         }
     }
     
-    // getAppointments = () => {
-    //     let options = {
-    //         headers: {
-    //           "Authorization": "Bearer " + auth.getAccessToken()
-    //         }
-    //     }
+    componentDidMount() {
+        this.getTopThreeTutors()
+        this.getAppointments()
+    }
 
-    //     fetch(`${API_URL}/appointments`, options)
-    //     .then(resp => resp.json())
-    //     .then(appointmentsData => {
-    //         console.log(appointmentsData)
-    //         this.setState({
-    //             appointments: appointmentsData.results
-    //         })
-    //     })
-    // }
+    componentDidUpdate() {
+        if (!this.state.userType) {
+            this.getStudentOrTutorApiEndPoint()
+        }
+    }
+    
+    getStudentOrTutorApiEndPoint = () => {
+        let userType = localStorage.getItem("user_type") + "s";
 
+        let options = {
+            headers: {
+                "Authorization": "Bearer " + auth.getAccessToken()
+            }
+        }
+        
+        fetch(`${API_URL}/users/type`, options)
+        .then(resp => resp.json())
+        .then(userTypeData => {
+            console.log(userTypeData)
+            this.setState({
+                userType: userTypeData.results || userType
+            }, () => this.isProfileCompleted())
+        })
+    }
+    
+    isProfileCompleted = () => {
+        console.log(`${API_URL}/${this.state.userType}`)
+
+        let options = {
+            headers: {
+                "Authorization": "Bearer " + auth.getAccessToken()
+            }
+        }
+
+        fetch(`${API_URL}/${this.state.userType}/profile_complete`, options)
+        .then(resp => resp.json())
+        .then(isProfileCompletedData => {
+            console.log(isProfileCompletedData)
+            this.setState({
+                isProfileCompleted: isProfileCompletedData.results
+            })
+        })
+    }
+    
     getTopThreeTutors = () => {
         fetch(`${API_URL}/tutors/top/3`)
         .then(resp => resp.json())
@@ -45,11 +79,23 @@ class Dashboard extends Component {
         })
     }
     
-    componentDidMount() {
-        // this.getAppointments()
-        this.getTopThreeTutors()
-    }
+    getAppointments = () => {
+        let options = {
+            headers: {
+              "Authorization": "Bearer " + auth.getAccessToken()
+            }
+        }
 
+        fetch(`${API_URL}/appointments`, options)
+        .then(resp => resp.json())
+        .then(appointmentsData => {
+            console.log(appointmentsData)
+            this.setState({
+                appointments: appointmentsData.results
+            })
+        })
+    }
+    
     render() {
         const profile = this.props.profile
         const givenName = profile.given_name
@@ -58,20 +104,19 @@ class Dashboard extends Component {
         return (
             <div>
                 <h6 className="tutor-list-header mt-4">
-                    Your Top 3 Tutors!
+                    Your Top {this.state.tutors.length} Tutors!
                 </h6>
                 <TutorList profileTest={this.props.profile} profileTestName={nameToDisplay} tutors={this.state.tutors} />
                 <hr/>
                 <h6 className="appointment-list-header pl-4 mt-4">
                     Here are your Appointments, {nameToDisplay}:
                 </h6>
-                {/* <AppointmentList appointments={this.state.appointments} /> */}
+                <AppointmentList appointments={this.state.appointments} />
                 <ChainedQuizModals 
-                    modalList={[
-                        QuestionModal, 
-                        QuestionModal, 
-                        QuestionModal
-                    ]} />
+                    modalList={[QuestionModal, QuestionModal, QuestionModal]}
+                    isProfileCompleted={this.state.isProfileCompleted}
+                    userType={this.state.userType} 
+                />
             </div>
         );
     }

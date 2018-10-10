@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Auth from "../../Auth/Auth"
+import history from "../../history"
 
 const auth = new Auth();
 
@@ -7,39 +8,22 @@ class ChainedQuizModals extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userType: "",
             currentIndex: 0,
             showModal: false,
             quizAnswers: []
         }
     }
 
-    componentDidMount() {
-        this.toggle();
-        this.getStudentOrTutorProfile();
+    componentWillReceiveProps(nextProps) {
+        if (this.props.isProfileCompleted !== nextProps.isProfileCompleted) {
+            this.toggle();
+        }
     }
 
     toggle = () => {
         this.setState({
             showModal: !this.state.showModal
         });
-    }
-
-    getStudentOrTutorProfile = () => {
-        let options = {
-            headers: {
-                "Authorization": "Bearer " + auth.getAccessToken()
-            }
-        }
-
-        fetch("https://localhost:5001/api/users/type", options)
-        .then(resp => resp.json())
-        .then(userType => {
-            console.log(userType)
-            this.setState({
-                userType: userType.results
-            })
-        })
     }
 
     postQuizToDatabase = () => {
@@ -81,7 +65,7 @@ class ChainedQuizModals extends Component {
         .then(resp => resp.json())
         .then(quizJSON => {
             console.log(quizJSON)
-            return fetch(`https://localhost:5001/api/${this.state.userType}/quiz/add/${quizJSON.results.id}`, otherOptions)
+            return fetch(`https://localhost:5001/api/${this.props.userType}/quiz/add/${quizJSON.results.id}`, otherOptions)
         })
         .then(resp => resp.json())
         .then(updatedStudentOrTutor => {
