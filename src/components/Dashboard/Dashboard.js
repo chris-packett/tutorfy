@@ -19,9 +19,9 @@ class Dashboard extends Component {
         }
     }
     
-    componentDidMount() {
-        this.getTopThreeTutors()
-    }
+    // componentDidMount() {
+    //     this.getTopThreeTutors()
+    // }
 
     componentDidUpdate() {
         if (!this.state.userType) {
@@ -46,6 +46,7 @@ class Dashboard extends Component {
                 userType: userTypeData.results || userType
             }, () => {
                 this.isProfileCompleted()
+                this.getTutorMatches()
                 this.getAppointments()
             })
         })
@@ -70,13 +71,21 @@ class Dashboard extends Component {
         })
     }
     
-    getTopThreeTutors = () => {
-        fetch(`${API_URL}/tutors/top/3`)
+    getTutorMatches = () => {
+        let options = {
+            headers: {
+                "Authorization": "Bearer " + auth.getAccessToken()
+            }
+        }
+
+        fetch(`${API_URL}/tutors/matched`, options)
         .then(resp => resp.json())
-        .then(tutorData => {
-            console.log(tutorData.results)
+        .then(tutorsData => {
+            console.log(tutorsData.results)
+            let newTutors = tutorsData.results.map(tutorData => tutorData.tutor)
+            
             this.setState({
-                tutors: tutorData.results
+                tutors: newTutors
             })
         })
     }
