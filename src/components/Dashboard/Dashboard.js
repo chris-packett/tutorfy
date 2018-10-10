@@ -17,22 +17,22 @@ class Dashboard extends Component {
         }
     }
     
-    getAppointments = () => {
-        let options = {
-            headers: {
-              "Authorization": "Bearer " + auth.getAccessToken()
-            }
-        }
+    // getAppointments = () => {
+    //     let options = {
+    //         headers: {
+    //           "Authorization": "Bearer " + auth.getAccessToken()
+    //         }
+    //     }
 
-        fetch(`${API_URL}/appointments`, options)
-        .then(resp => resp.json())
-        .then(appointmentsData => {
-            console.log(appointmentsData)
-            this.setState({
-                appointments: appointmentsData.results
-            })
-        })
-    }
+    //     fetch(`${API_URL}/appointments`, options)
+    //     .then(resp => resp.json())
+    //     .then(appointmentsData => {
+    //         console.log(appointmentsData)
+    //         this.setState({
+    //             appointments: appointmentsData.results
+    //         })
+    //     })
+    // }
 
     getTopThreeTutors = () => {
         fetch(`${API_URL}/tutors/top/3`)
@@ -46,7 +46,7 @@ class Dashboard extends Component {
     }
     
     componentDidMount() {
-        this.getAppointments()
+        // this.getAppointments()
         this.getTopThreeTutors()
     }
 
@@ -65,7 +65,7 @@ class Dashboard extends Component {
                 <h6 className="appointment-list-header pl-4 mt-4">
                     Here are your Appointments, {nameToDisplay}:
                 </h6>
-                <AppointmentList appointments={this.state.appointments} />
+                {/* <AppointmentList appointments={this.state.appointments} /> */}
                 <ChainedQuizModals 
                     modalList={[
                         QuestionModal, 

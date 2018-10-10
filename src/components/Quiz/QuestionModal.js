@@ -31,7 +31,6 @@ class QuestionModal extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.handleNext();
-        // this.props.postQuiz()
     }
     
     render() {
