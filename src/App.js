@@ -25,6 +25,7 @@ class App extends Component {
     super(props);
     this.state = {
       isLoggedIn: false,
+      isHomePage: false,
       profile: {}
     }
   }
@@ -41,15 +42,26 @@ class App extends Component {
   componentDidMount() {
     history.listen(() => {
       this.updateLoginState()
+      this.updateHomePageState()
       this.checkProfile()
     })
     this.updateLoginState()
+    this.updateHomePageState()
     this.checkProfile()
   }
   
   updateLoginState() {
     if (auth.isAuthenticated()) {
       this.setState({ isLoggedIn: true })
+    }
+  }
+
+  updateHomePageState() {
+    if (window.location.pathname.length === 1) {
+      this.setState({ isHomePage: true })
+    }
+    else {
+      this.setState({ isHomePage: false })
     }
   }
 
@@ -71,32 +83,36 @@ class App extends Component {
   }
     
   render() {
-    const { isLoggedIn, profile } = this.state
+    const { isLoggedIn, isHomePage, profile } = this.state
 
     return (
       <Router history={history}>
         <div className="app">
-          <div className="top-container sticky-top">
-            {/* https://imgur.com/0vd22AD */}
-            <Link to="/dashboard"><img src="/assets/logo-v2.png" alt="logo" id="logo" /></Link>
-            {
-              !isLoggedIn && (
-                <button className="btn btn-outline-dark btn-sm" onClick={this.login.bind(this)}>
-                  Log In
-                </button>
-              )
-            }
-            {
-              isLoggedIn && (
-                <div className="top-container-pic-and-button-container">
-                  <img src={profile.picture} alt="profile-pic" className="top-container-profile-pic"/>
-                  <button className="btn btn-outline-dark btn-sm top-container-button" onClick={this.logout.bind(this)}>
-                    Log Out
-                  </button>
-                </div>
-              )
-            }
-          </div>
+          {
+            !isHomePage && (
+              <div className="top-container sticky-top">
+                {/* https://imgur.com/0vd22AD */}
+                <Link to="/dashboard"><img src="/assets/logo-v2.png" alt="logo" id="logo" /></Link>
+                {
+                  !isLoggedIn && (
+                    <button className="btn btn-outline-dark btn-sm" onClick={this.login.bind(this)}>
+                      Log In
+                    </button>
+                  )
+                }
+                {
+                  isLoggedIn && (
+                    <div className="top-container-pic-and-button-container">
+                      <img src={profile.picture} alt="profile-pic" className="top-container-profile-pic"/>
+                      <button className="btn btn-outline-dark btn-sm top-container-button" onClick={this.logout.bind(this)}>
+                        Log Out
+                      </button>
+                    </div>
+                  )
+                }
+              </div>
+            )
+          }
           <div className="app-component">
             <Switch>
               <Route path="/" exact component={Home} />

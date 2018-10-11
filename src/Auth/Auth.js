@@ -7,6 +7,7 @@ export default class Auth {
     clientID: 'Mp7YgF7f85LLtwPPEOTnC4xdW3aKy9Mm',
     redirectUri: 'http://localhost:3000/callback',
     // redirectUri: 'https://tutorfy.netlify.com/callback',
+    // redirectUri: 'https://tutorfy.co/callback',
     audience: 'https://tutorfy.api',
     responseType: 'token id_token',
     scope: 'openid profile'

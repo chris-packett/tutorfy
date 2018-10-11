@@ -20,6 +20,66 @@
     width: 33%;
 }
 
+#home-page-logo {
+    width: 25%;
+    position: absolute;
+    top: 2%;
+    left: 3%;
+}
+
+#home-page-open-book {
+    width: 17%;
+    position: absolute;
+    top: 33.333%;
+}
+
+.home-page-middle-images {
+    position: absolute;
+    bottom: 30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#home-page-column {
+    width: 18%;
+}
+
+#home-page-mortarboard {
+    width: 22%;
+}
+
+#home-page-glasses {
+    width: 22%;
+}
+
+.home-page-v-bar { 
+    border: none;
+    border-left: 1px solid #ddd;
+    height: 10vh;
+    width: 1px;       
+}
+
+.home-page-middle-benefits {
+    width: 100%;
+    position: absolute;
+    bottom: 24%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home-page-middle-benefits-text {
+    font-weight: bold;
+    color: #0B557B;
+}
+
+.homepage-top-auth-button {
+    position: absolute;
+    top: 2.5%;
+    right: 4%;
+}
+
 .top-container-pic-and-button-container {
     display: flex;
     justify-content: flex-end;
@@ -78,10 +138,31 @@
     height: 50%;
 }
 
+.home-page-header {
+    position: absolute;
+    text-align: center;
+    top: 15%;
+    font-weight: bold;
+    color: #0B557B;
+}
+
+.home-page-sub-header {
+    width: 50%;
+    position: absolute;
+    text-align: center;
+    top: 25%;
+    /* font-weight: bold; */
+    color: #0B557B;
+}
+
 .home-page-get-started-buttons {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 5%;
+    left: 0%;
 }
 
 .appointments-page {

@@ -10,7 +10,7 @@ class BackgroundSVG extends Component {
               <stop offset="100%" className="end" />
             </linearGradient>
           </defs>
-          <polygon points="0,0 100,0 100,20 50,35 0,20" className="polygon-unit"/>
+          <polygon points="0,0 100,0 100,30 50,50 0,30" className="polygon-unit"/>
         </svg>
         );
     }
