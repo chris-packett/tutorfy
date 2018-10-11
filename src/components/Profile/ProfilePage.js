@@ -27,6 +27,9 @@ class ProfilePage extends Component {
                 <div className="d-flex w-100">
                     <Link to="/dashboard" className="btn btn-dark btn-sm">Back</Link>
                 </div>
+                <img className="profile-page-profile-picture" src={this.state.tutor.pictureURL} alt="" />
+                <h4>{this.state.tutor.name}</h4>
+                <h6>Rate: ${this.state.tutor.hourlyRate}.00/hour</h6>
                 <Link to={`/appointment/add/tutor/${this.props.match.params.id}`} className="btn btn-dark btn-md">Schedule an Appointment</Link>
             </div>
         );

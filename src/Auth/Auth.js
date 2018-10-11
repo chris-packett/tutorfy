@@ -41,6 +41,7 @@ export default class Auth {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         this.createUser();
+        console.log("in handleAuthentication in Auth.js")
         history.replace('/dashboard');
       } else if (err) {
         history.replace('/');
@@ -80,6 +81,7 @@ export default class Auth {
   createUser = () => {
     if (!this.userProfile) {
       this.getProfile((err, profile) => {
+        console.log("in createUser")
         this.postUserToDatabase(profile)
           .then(userAndUserTypeData => {
             console.log(userAndUserTypeData)
@@ -142,18 +144,15 @@ export default class Auth {
       body: JSON.stringify(userTypeInfo)
     }
 
-    let postedUserTypeJSON;
+    let postedUserTypeResponse = await fetch(`${API_URL}/${userType}s/add`, userTypeOptions)
 
-    //this is temporary... need to rethink userType
-    if (!userType === null) {
-      let postedUserTypeResponse = await fetch(`${API_URL}/${userType}s/add`, userTypeOptions)
-  
-      postedUserTypeJSON = await postedUserTypeResponse.json()
-    }
+    let postedUserTypeJSON = await postedUserTypeResponse.json()
+
+    console.log("I got here!")
 
     return {
       user: postedUserJSON,
-      userType: postedUserTypeJSON || null
+      userType: postedUserTypeJSON
     }
   }
 

@@ -18,10 +18,6 @@ class Dashboard extends Component {
             isProfileCompleted: true
         }
     }
-    
-    // componentDidMount() {
-    //     this.getTopThreeTutors()
-    // }
 
     componentDidUpdate() {
         if (!this.state.userType) {
@@ -30,7 +26,7 @@ class Dashboard extends Component {
     }
     
     getStudentOrTutorApiEndPoint = () => {
-        let userType = localStorage.getItem("user_type") + "s";
+        // let userTypeFromStorage = localStorage.getItem("user_type") + "s";
 
         let options = {
             headers: {
@@ -42,13 +38,22 @@ class Dashboard extends Component {
         .then(resp => resp.json())
         .then(userTypeData => {
             console.log(userTypeData)
-            this.setState({
-                userType: userTypeData.results || userType
-            }, () => {
-                this.isProfileCompleted()
-                this.getTutorMatches()
-                this.getAppointments()
-            })
+            // console.log(userTypeFromStorage)
+            console.log(localStorage.getItem("user_type") + "s")
+            if (userTypeData.results === "") {
+                this.setState({ userType: localStorage.getItem("user_type") + "s" }, () => {
+                    this.isProfileCompleted()
+                    this.getTutorMatches()
+                    this.getAppointments()
+                })
+            }
+            else {
+                this.setState({ userType: userTypeData.results }, () => {
+                    this.isProfileCompleted()
+                    this.getTutorMatches()
+                    this.getAppointments()
+                })
+            }
         })
     }
     
@@ -83,7 +88,6 @@ class Dashboard extends Component {
         .then(tutorsData => {
             console.log(tutorsData.results)
             let newTutors = tutorsData.results.map(tutorData => tutorData.tutor)
-            
             this.setState({
                 tutors: newTutors
             })
