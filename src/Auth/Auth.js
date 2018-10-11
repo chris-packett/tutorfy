@@ -142,13 +142,18 @@ export default class Auth {
       body: JSON.stringify(userTypeInfo)
     }
 
-    let postedUserTypeResponse = await fetch(`${API_URL}/${userType}s/add`, userTypeOptions)
+    let postedUserTypeJSON;
 
-    let postedUserTypeJSON = await postedUserTypeResponse.json()
+    //this is temporary... need to rethink userType
+    if (!userType === null) {
+      let postedUserTypeResponse = await fetch(`${API_URL}/${userType}s/add`, userTypeOptions)
+  
+      postedUserTypeJSON = await postedUserTypeResponse.json()
+    }
 
     return {
       user: postedUserJSON,
-      userType: postedUserTypeJSON
+      userType: postedUserTypeJSON || null
     }
   }
 
