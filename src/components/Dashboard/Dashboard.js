@@ -6,7 +6,8 @@ import ChainedQuizModals from '../Quiz/ChainedQuizModals';
 import QuestionModal from '../Quiz/QuestionModal';
 
 const auth = new Auth();
-const API_URL = "https://localhost:5001/api"
+// const API_URL = "https://localhost:5001/api"
+const API_URL = "https://tutorfy.herokuapp.com/api"
 
 class Dashboard extends Component {
     constructor(props) {

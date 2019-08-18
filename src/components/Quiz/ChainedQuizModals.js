@@ -61,11 +61,13 @@ class ChainedQuizModals extends Component {
             }
         }
         
-        fetch('https://localhost:5001/api/quizzes/add', quizOptions)
+        // fetch('https://localhost:5001/api/quizzes/add', quizOptions)
+        fetch('https://tutorfy.herokuapp.com/api/quizzes/add', quizOptions)
         .then(resp => resp.json())
         .then(quizJSON => {
             console.log(quizJSON)
-            return fetch(`https://localhost:5001/api/${this.props.userType}/quiz/add/${quizJSON.results.id}`, otherOptions)
+            // return fetch(`https://localhost:5001/api/${this.props.userType}/quiz/add/${quizJSON.results.id}`, otherOptions)
+            return fetch(`https://tutorfy.herokuapp.com/api/${this.props.userType}/quiz/add/${quizJSON.results.id}`, otherOptions)
         })
         .then(resp => resp.json())
         .then(updatedStudentOrTutor => {

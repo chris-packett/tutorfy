@@ -23,7 +23,8 @@ class AppointmentCard extends Component {
         }
 
         if (this.props.userType === "students") {
-            fetch(`https://localhost:5001/api/tutors/profile/${this.props.appointment.tutorId}`, options)
+            // fetch(`https://localhost:5001/api/tutors/profile/${this.props.appointment.tutorId}`, options)
+            fetch(`https://tutorfy.herokuapp.com/api/tutors/profile/${this.props.appointment.tutorId}`, options)
             .then(resp => resp.json())
             .then(tutorData => {
                 console.log(tutorData)
@@ -33,7 +34,8 @@ class AppointmentCard extends Component {
             })
         }
         else if (this.props.userType === "tutors") {
-            fetch(`https://localhost:5001/api/students/profile/${this.props.appointment.studentId}`, options)
+            // fetch(`https://localhost:5001/api/students/profile/${this.props.appointment.studentId}`, options)
+            fetch(`https://tutorfy.herokuapp.com/api/students/profile/${this.props.appointment.studentId}`, options)
             .then(resp => resp.json())
             .then(studentData => {
                 console.log(studentData)

@@ -5,8 +5,8 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'tutorfy.auth0.com',
     clientID: 'Mp7YgF7f85LLtwPPEOTnC4xdW3aKy9Mm',
-    redirectUri: 'http://localhost:3000/callback',
-    // redirectUri: 'https://tutorfy.netlify.com/callback',
+    // redirectUri: 'http://localhost:3000/callback',
+    redirectUri: 'https://tutorfy.netlify.com/callback',
     // redirectUri: 'https://tutorfy.co/callback',
     audience: 'https://tutorfy.api',
     responseType: 'token id_token',
@@ -94,7 +94,8 @@ export default class Auth {
   }
 
   async postUserToDatabase (profile) {
-    const API_URL = "https://localhost:5001/api"
+    // const API_URL = "https://localhost:5001/api"
+    const API_URL = "https://tutorfy.herokuapp.com/api"
 
     //Either a tutor or a student
     const userType = localStorage.getItem('user_type');

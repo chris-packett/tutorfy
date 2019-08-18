@@ -47,7 +47,8 @@ class AppointmentForm extends Component {
             body: JSON.stringify(appointmentInfo)
         }
 
-        fetch('https://localhost:5001/api/appointments/add', appointmentOptions)
+        // fetch('https://localhost:5001/api/appointments/add', appointmentOptions)
+        fetch('https://tutorfy.herokuapp.com/api/appointments/add', appointmentOptions)
         .then(resp => resp.json())
         .then(appointmentJSON => {
             console.log(appointmentJSON)

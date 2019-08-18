@@ -12,7 +12,8 @@ class AppointmentsPage extends Component {
     }
     
     componentDidMount() {
-        fetch(`https://localhost:5001/api/tutors/profile/${this.props.match.params.id}`)
+        // fetch(`https://localhost:5001/api/tutors/profile/${this.props.match.params.id}`)
+        fetch(`https://tutorfy.herokuapp.com/api/tutors/profile/${this.props.match.params.id}`)
         .then(resp => resp.json())
         .then(tutorData => {
             console.log(tutorData)
